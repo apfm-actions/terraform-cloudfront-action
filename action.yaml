@@ -29,7 +29,7 @@ inputs:
     description: 'Any comments you want to include about the distribution'
     required: true
   aliases:
-    description: 'A comma separated list of extra CNAMEs (alternate domain names), if any, for this distribution'
+    description: 'A comma separated list of extra CNAMEs (alternate domain names). If creating a custom SSL certificate, this list will be used as SANs in the issued certificate'
     required: false
   default_root_object:
     description: 'The object that you want CloudFront to return (for example, index.html) when an end user requests the root URL'
@@ -76,39 +76,56 @@ inputs:
     description: 'Use this element to specify the protocol that users can use to access the files in the origin. One of allow-all, https-only, or redirect-to-https'
     required: false
     default: 'allow-all'
+  forward_headers:
+    description: 'Specifies the Headers, if any, that you want CloudFront to vary upon for this cache behavior'
+    required: false
+  forward_query_string:
+    description: 'Indicates whether you want CloudFront to forward query strings to the origin'
+    required: false
+    default: false
+  forward_cookies:
+    description: 'Specifies whether you want CloudFront to forward cookies to the origin. You can specify all or none'
+    required: false
+    default: 'none'
 
-  backup_window:
-    description: 'The daily time range during which automated backups are created in UTC. e.g. 04:00-09:00'
+  use_default_cert:
+    description: 'If you want viewers to use HTTPS to request your objects and you're using the CloudFront domain name for your distribution'
     required: false
-    default: '07:00-11:00'
-  backup_retention:
-    description: 'The days to retain backups for'
+    default: false
+  minimum_protocol_version:
+    description: 'The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections'
     required: false
-    default: 1
+    default: 'TLSv1.2_2018'
+  certificate_domain_name:
+    description: 'A domain name for which the certificate should be issued'
+    required: false
+  
+  restriction_locations:
+    description: 'The ISO 3166-1-alpha-2 codes for which you want CloudFront either to distribute your content (whitelist) or not distribute your content (blacklist)'
+    required: false
+  locations_restriction_type:
+    description: 'The method that you want to use to restrict distribution of your content by country: none, whitelist, or blacklist'
+    required: false
+    default: 'none'
 
-  instance_count:
-    description: 'Number of instances to create and join to the cluster'
+  logging_bucket:
+    description: 'The Amazon S3 bucket to store the access logs in'
     required: false
-    default: 1
-  instance_class:
-    description: 'The instance class to use. Supported instance classes: https://docs.aws.amazon.com/documentdb/latest/developerguide/db-instance-classes.html#db-instance-class-specs'
+  logging_include_cookies:
+    description: 'Specifies whether you want CloudFront to include cookies in access logs'
     required: false
-    default: db.r5.large
-
-  subnet_ids:
-    description: 'A comma separated list of subnet IDs'
-    required: true
+    default: false
+  logging_prefix:
+    description: 'An optional string that you want CloudFront to prefix to the access log filenames for this distribution'
+    required: false
+      
 
 outputs:
-  documentdb_name:
-    description: 'Name of the created documentdb cluster'
-  documentdb_arn:
-    description: 'ARN of the created documentdb cluster'
-  documentdb_endpoint:
-    description: 'The DNS address of the DocDB instance'
-  documentdb_reader_endpoint:
-    description: 'A read-only endpoint for the DocDB cluster, automatically load-balanced across replicas'
-  
+  cloudfront_status:
+    description: 'The current status of the distribution'
+  cloudfront_domain_name:
+    description: 'The domain name corresponding to the distribution"'
+
 runs:
   using: docker
   image: Dockerfile

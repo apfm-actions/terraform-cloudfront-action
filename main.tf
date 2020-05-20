@@ -27,13 +27,13 @@ resource "aws_cloudfront_distribution" "distribution" {
       query_string_cache_keys = split(",", var.forward_query_string_cache_keys)
 
       cookies {
-        forward = var.cookies_forward
+        forward = var.forward_cookies
       }
     }
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = var.default_cert
+    cloudfront_default_certificate = var.use_default_cert
     acm_certificate_arn            = aws_acm_certificate.cert.arn
     minimum_protocol_version       = var.minimum_protocol_version
     ssl_support_method             = "sni-only"
