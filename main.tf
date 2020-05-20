@@ -1,12 +1,12 @@
 resource "aws_cloudfront_distribution" "distribution" {
-  enabled             = var.enabled
+  enabled             = var.enable_cloudfront
   comment             = var.comment
   aliases             = split(",", var.aliases)
   default_root_object = var.default_root_object
   price_class         = var.price_class
 
   origin {
-    domain_name = var.domain_name
+    domain_name = var.origin_domain_name
     origin_id   = var.origin_id
     origin_path = var.origin_path
   }
@@ -33,8 +33,8 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = false
-    acm_certificate_arn            = var.acm_certificate_arn
+    cloudfront_default_certificate = var.default_cert
+    acm_certificate_arn            = aws_acm_certificate.cert.arn
     minimum_protocol_version       = var.minimum_protocol_version
     ssl_support_method             = "sni-only"
   }

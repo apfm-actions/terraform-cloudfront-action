@@ -1,0 +1,114 @@
+name: CloudFront Deploy
+description: Deploy an AWS CloudFront Distribution using Terraform
+inputs:
+  aws_assume_role:
+    description: 'ARN of the assumable role to execute Terraform against the environment'
+    required: false
+  aws_external_id:
+    description: 'AWS external ID required to grant access to role'
+    required: false
+
+  destroy:
+    description: 'Runs Terraform destroy to remove resources created by this action'
+    required: false
+    default: false
+  deploy:
+    description: 'Runs Terraform apply to create/update resources created by this action'
+    required: false
+    default: true
+  plan:
+    description: 'Runs Terraform plan to check the changes necessary to achieve the desired state'
+    required: false
+    default: true
+
+  enable_cloudfront:
+    description: 'Whether the distribution is enabled to accept end user requests for content'
+    required: false
+    default: true
+  comment:
+    description: 'Any comments you want to include about the distribution'
+    required: true
+  aliases:
+    description: 'A comma separated list of extra CNAMEs (alternate domain names), if any, for this distribution'
+    required: false
+  default_root_object:
+    description: 'The object that you want CloudFront to return (for example, index.html) when an end user requests the root URL'
+    required: false
+    default: index.html
+  price_class:
+    description: 'The price class for this distribution. One of PriceClass_All, PriceClass_200, PriceClass_100'
+    required: false
+    default: 'PriceClass_100'
+  origin_domain_name:
+    description: 'The DNS domain name of either the S3 bucket, or web site of your custom origin'
+    required: true
+  origin_id:
+    description: 'A unique identifier for the origin'
+    required: true
+  origin_path:
+    description: 'An optional element that causes CloudFront to request your content from a directory in your Amazon S3 bucket or your custom origin'
+    required: false
+  allowed_methods:
+    description: 'A comma separated list of Controls which HTTP methods CloudFront processes and forwards to your Amazon S3 bucket or your custom origin'
+    required: false
+    default: 'DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT'
+  cached_mehods:
+    description: 'Controls whether CloudFront caches the response to requests using the specified HTTP methods'
+    required: false
+    default: 'GET, HEAD'
+  default_ttl:
+    description: 'The default amount of time (in seconds) that an object is in a CloudFront cache'
+    required: false
+    default: 86400
+  max_ttl:
+    description: 'The maximum amount of time (in seconds) that an object is in a CloudFront cache'
+    required: false
+    default: 31536000
+  min_ttl:
+    description: 'The minimum amount of time that you want objects to stay in CloudFront caches'
+    required: false
+    default: 0
+  path_pattern:
+    description: 'The pattern (for example, images/*.jpg) that specifies which requests you want this cache behavior to apply to'
+    required: false
+    default: '*'
+  viewer_protocol_policy:
+    description: 'Use this element to specify the protocol that users can use to access the files in the origin. One of allow-all, https-only, or redirect-to-https'
+    required: false
+    default: 'allow-all'
+
+  backup_window:
+    description: 'The daily time range during which automated backups are created in UTC. e.g. 04:00-09:00'
+    required: false
+    default: '07:00-11:00'
+  backup_retention:
+    description: 'The days to retain backups for'
+    required: false
+    default: 1
+
+  instance_count:
+    description: 'Number of instances to create and join to the cluster'
+    required: false
+    default: 1
+  instance_class:
+    description: 'The instance class to use. Supported instance classes: https://docs.aws.amazon.com/documentdb/latest/developerguide/db-instance-classes.html#db-instance-class-specs'
+    required: false
+    default: db.r5.large
+
+  subnet_ids:
+    description: 'A comma separated list of subnet IDs'
+    required: true
+
+outputs:
+  documentdb_name:
+    description: 'Name of the created documentdb cluster'
+  documentdb_arn:
+    description: 'ARN of the created documentdb cluster'
+  documentdb_endpoint:
+    description: 'The DNS address of the DocDB instance'
+  documentdb_reader_endpoint:
+    description: 'A read-only endpoint for the DocDB cluster, automatically load-balanced across replicas'
+  
+runs:
+  using: docker
+  image: Dockerfile
