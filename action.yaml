@@ -1,13 +1,6 @@
 name: CloudFront Deploy
 description: Deploy an AWS CloudFront Distribution using Terraform
 inputs:
-  aws_assume_role:
-    description: 'ARN of the assumable role to execute Terraform against the environment'
-    required: false
-  aws_external_id:
-    description: 'AWS external ID required to grant access to role'
-    required: false
-
   destroy:
     description: 'Runs Terraform destroy to remove resources created by this action'
     required: false
@@ -34,7 +27,6 @@ inputs:
   default_root_object:
     description: 'The object that you want CloudFront to return (for example, index.html) when an end user requests the root URL'
     required: false
-    default: index.html
   price_class:
     description: 'The price class for this distribution. One of PriceClass_All, PriceClass_200, PriceClass_100'
     required: false

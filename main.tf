@@ -40,7 +40,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   restrictions {
-    locations        = split(",", var.locations)
+    locations        = split(",", var.restriction_locations)
     restriction_type = var.locations_restriction_type
   }
 
