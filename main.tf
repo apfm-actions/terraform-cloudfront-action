@@ -17,7 +17,6 @@ resource "aws_cloudfront_distribution" "distribution" {
     default_ttl            = var.default_ttl
     max_ttl                = var.max_ttl
     min_ttl                = var.min_ttl
-    path_pattern           = var.path_pattern
     target_origin_id       = var.origin_id
     viewer_protocol_policy = var.viewer_protocol_policy
     
@@ -39,8 +38,10 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   restrictions {
-    locations        = split(",", var.restriction_locations)
-    restriction_type = var.locations_restriction_type
+    geo_restriction {
+      locations        = split(",", var.restriction_locations)
+      restriction_type = var.locations_restriction_type
+    }
   }
 
   logging_config {

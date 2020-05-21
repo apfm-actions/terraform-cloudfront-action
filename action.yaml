@@ -60,10 +60,6 @@ inputs:
     description: 'The minimum amount of time that you want objects to stay in CloudFront caches'
     required: false
     default: 0
-  path_pattern:
-    description: 'The pattern (for example, images/*.jpg) that specifies which requests you want this cache behavior to apply to'
-    required: false
-    default: '*'
   viewer_protocol_policy:
     description: 'Use this element to specify the protocol that users can use to access the files in the origin. One of allow-all, https-only, or redirect-to-https'
     required: false
