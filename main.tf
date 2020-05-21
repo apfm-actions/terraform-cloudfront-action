@@ -34,9 +34,9 @@ resource "aws_cloudfront_distribution" "distribution" {
 
   viewer_certificate {
     cloudfront_default_certificate = var.use_default_cert
-    acm_certificate_arn            = aws_acm_certificate.cert.arn
-    minimum_protocol_version       = var.minimum_protocol_version
-    ssl_support_method             = "sni-only"
+    acm_certificate_arn            = var.use_default_cert ? "" : aws_acm_certificate.cert.arn
+    minimum_protocol_version       = var.use_default_cert ? "" : var.minimum_protocol_version
+    ssl_support_method             = var.use_default_cert ? "" : "sni-only"
   }
 
   restrictions {
