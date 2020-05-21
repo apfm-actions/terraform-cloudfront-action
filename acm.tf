@@ -10,10 +10,10 @@ resource "aws_acm_certificate" "cert" {
   subject_alternative_names = split(",", var.aliases)
 
   tags = {
-    app     = var.name
-    project = var.project_name
-    owner   = var.project_owner
-    email   = var.project_email
+    app   = var.project_name
+    owner = var.project_owner
+    env   = terraform.workspace
+    repo  = var.github_repository
   }
 
   lifecycle {

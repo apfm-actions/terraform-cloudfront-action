@@ -54,5 +54,6 @@ resource "aws_cloudfront_distribution" "distribution" {
     app   = var.project_name
     owner = var.project_owner
     env   = terraform.workspace
+    repo  = var.github_repository
   }
 }
