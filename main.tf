@@ -13,7 +13,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   
   default_cache_behavior {
     allowed_methods        = split(",", var.allowed_methods)
-    cached_methods          = split(",", var.cached_methods)
+    cached_methods         = split(",", var.cached_methods)
     default_ttl            = var.default_ttl
     max_ttl                = var.max_ttl
     min_ttl                = var.min_ttl

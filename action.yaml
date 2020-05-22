@@ -43,11 +43,11 @@ inputs:
   allowed_methods:
     description: 'A comma separated list of Controls which HTTP methods CloudFront processes and forwards to your Amazon S3 bucket or your custom origin'
     required: false
-    default: 'DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT'
+    default: 'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'
   cached_methods:
     description: 'Controls whether CloudFront caches the response to requests using the specified HTTP methods'
     required: false
-    default: 'GET, HEAD'
+    default: 'GET,HEAD'
   default_ttl:
     description: 'The default amount of time (in seconds) that an object is in a CloudFront cache'
     required: false
