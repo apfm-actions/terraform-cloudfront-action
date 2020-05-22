@@ -9,6 +9,13 @@ resource "aws_cloudfront_distribution" "distribution" {
     domain_name = var.origin_domain_name
     origin_id   = var.origin_id
     origin_path = var.origin_path
+
+    custom_origin_config {
+      http_port              = var.origin_http_port
+      https_port             = var.origin_https_port
+      origin_protocol_policy = var.origin_protocol_policy
+      origin_ssl_protocols   = split(",", var.origin_ssl_protocols)
+    }
   }
   
   default_cache_behavior {
@@ -21,8 +28,8 @@ resource "aws_cloudfront_distribution" "distribution" {
     viewer_protocol_policy = var.viewer_protocol_policy
     
     forwarded_values {
-      headers                 = split(",", var.forward_headers)
-      query_string            = var.forward_query_string
+      headers      = split(",", var.forward_headers)
+      query_string = var.forward_query_string
 
       cookies {
         forward = var.forward_cookies

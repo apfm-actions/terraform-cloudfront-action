@@ -40,6 +40,22 @@ inputs:
   origin_path:
     description: 'An optional element that causes CloudFront to request your content from a directory in your Amazon S3 bucket or your custom origin'
     required: false
+  origin_http_port:
+    description: 'The HTTP port the custom origin listens on'
+    required: false
+    default: 80
+  origin_https_port:
+    description: 'The HTTPS port the custom origin listens on'
+    required: false
+    default: 443
+  origin_protocol_policy:
+    description: 'The origin protocol policy to apply to your origin. One of http-only, https-only, or match-viewer'
+    required: false
+    default: 'https-only'
+  origin_ssl_protocols:
+    description: 'The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS. A list of one or more of SSLv3, TLSv1, TLSv1.1, and TLSv1.2'
+    required: false
+    default: 'TLSv1.2'
   allowed_methods:
     description: 'A comma separated list of Controls which HTTP methods CloudFront processes and forwards to your Amazon S3 bucket or your custom origin'
     required: false
