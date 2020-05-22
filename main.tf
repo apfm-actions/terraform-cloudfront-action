@@ -28,7 +28,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     viewer_protocol_policy = var.viewer_protocol_policy
     
     forwarded_values {
-      headers      = split(",", var.forward_headers)
+      headers      = var.forward_headers != "" ? split(",", var.forward_headers) : []
       query_string = var.forward_query_string
 
       cookies {
