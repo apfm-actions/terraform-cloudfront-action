@@ -44,12 +44,12 @@ resource "aws_cloudfront_distribution" "distribution" {
     ssl_support_method             = var.use_default_cert ? "" : "sni-only"
   }
 
-  restrictions {
-    geo_restriction {
-      locations        = split(",", var.restriction_locations)
-      restriction_type = var.locations_restriction_type
-    }
-  }
+  # restrictions {
+  #   geo_restriction {
+  #     locations        = split(",", var.restriction_locations)
+  #     restriction_type = var.locations_restriction_type
+  #   }
+  # }
 
   # logging_config {
   #   bucket          = var.logging_bucket
