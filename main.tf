@@ -1,7 +1,12 @@
+locals {
+  var.aliases = var.aliases != "" ? split(",", var.aliases) : []
+}
+
+
 resource "aws_cloudfront_distribution" "distribution" {
   enabled             = var.enable_cloudfront
   comment             = var.comment
-  aliases             = var.aliases != "" ? split(",", var.aliases) : []
+  aliases             = local.aliases
   default_root_object = var.default_root_object
   price_class         = var.price_class
 
