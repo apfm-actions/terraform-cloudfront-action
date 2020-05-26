@@ -1,5 +1,5 @@
 locals {
-  var.aliases = var.aliases != "" ? split(",", var.aliases) : []
+  aliases = var.aliases != "" ? split(",", var.aliases) : []
 }
 
 
