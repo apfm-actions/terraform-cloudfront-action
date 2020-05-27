@@ -9,10 +9,10 @@ provider "aws" {
 
 resource "aws_acm_certificate" "cert" {
   provider                  = aws.us-east-1
-  count                     = var.use_default_cert ? 0 : 1
+  count                     = local.use_default_cert ? 0 : 1
   domain_name               = local.aliases[0]
   validation_method         = "DNS"
-  # test: if provided empty alias list
+
   subject_alternative_names = slice(local.aliases,1,length(local.aliases))
 
   tags = {

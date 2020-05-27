@@ -1,6 +1,6 @@
 locals {
+  use_default_cert = var.aliases != "" ? false : true
   aliases = var.aliases != "" ? split(",", var.aliases) : []
-  use_default_cert = local.aliases[0] != "" ? false : true
 }
 
 
@@ -45,10 +45,10 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = var.use_default_cert
-    acm_certificate_arn            = var.use_default_cert ? "" : aws_acm_certificate.cert[0].arn
-    minimum_protocol_version       = var.use_default_cert ? "" : var.minimum_protocol_version
-    ssl_support_method             = var.use_default_cert ? "" : "sni-only"
+    cloudfront_default_certificate = local.use_default_cert
+    acm_certificate_arn            = local.use_default_cert ? "" : aws_acm_certificate.cert[0].arn
+    minimum_protocol_version       = local.use_default_cert ? "" : var.minimum_protocol_version
+    ssl_support_method             = local.use_default_cert ? "" : "sni-only"
   }
 
   restrictions {
