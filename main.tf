@@ -1,5 +1,6 @@
 locals {
   aliases = var.aliases != "" ? split(",", var.aliases) : []
+  use_default_cert = local.aliases[0] != "" ? false : true
 }
 
 
@@ -15,6 +16,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     origin_id   = var.origin_id
     origin_path = var.origin_path
 
+    # needs to be dynamic
     custom_origin_config {
       http_port              = var.origin_http_port
       https_port             = var.origin_https_port
@@ -57,7 +59,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   dynamic "logging_config" {
-    for_each = var.logging_bucket != "" ? [ "1"] : []
+    for_each = var.logging_bucket != "" ? ["1"] : []
 
     content {
       bucket          = var.logging_bucket

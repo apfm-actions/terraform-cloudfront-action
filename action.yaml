@@ -92,10 +92,10 @@ inputs:
     required: false
     default: 'none'
 
-  use_default_cert:
-    description: 'If you want viewers to use HTTPS to request your objects and youre using the CloudFront domain name for your distribution'
-    required: false
-    default: false
+  # use_default_cert:
+  #   description: 'If you want viewers to use HTTPS to request your objects and youre using the CloudFront domain name for your distribution'
+  #   required: false
+  #   default: false
   minimum_protocol_version:
     description: 'The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections'
     required: false

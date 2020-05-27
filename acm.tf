@@ -1,6 +1,5 @@
 provider "aws" {
   alias   = "us-east-1"
-
   region  = "us-east-1"
   assume_role {
     role_arn = var.aws_assume_role
@@ -9,8 +8,7 @@ provider "aws" {
 }
 
 resource "aws_acm_certificate" "cert" {
-  provider = aws.us-east-1
-
+  provider                  = aws.us-east-1
   count                     = var.use_default_cert ? 0 : 1
   domain_name               = local.aliases[0]
   validation_method         = "DNS"
