@@ -1,13 +1,13 @@
 locals {
-  use_default_cert = var.aliases != "" ? false : true
-  aliases = var.aliases != "" ? split(",", var.aliases) : []
+  use_default_cert = var.domain_names != "" ? false : true
+  domain_names = var.domain_names != "" ? split(",", var.domain_names) : []
 }
 
 
 resource "aws_cloudfront_distribution" "distribution" {
   enabled             = var.enable_cloudfront
   comment             = var.comment
-  aliases             = local.aliases
+  aliases             = local.domain_names
   default_root_object = var.default_root_object
   price_class         = var.price_class
 
@@ -47,7 +47,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   viewer_certificate {
     cloudfront_default_certificate = local.use_default_cert
     acm_certificate_arn            = local.use_default_cert ? "" : aws_acm_certificate.cert[0].arn
-    minimum_protocol_version       = local.use_default_cert ? "" : var.minimum_protocol_version
+    minimum_protocol_version       = local.use_default_cert ? "TLSv1" : var.minimum_protocol_version
     ssl_support_method             = local.use_default_cert ? "" : "sni-only"
   }
 

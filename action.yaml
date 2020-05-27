@@ -21,9 +21,6 @@ inputs:
   comment:
     description: 'Any comments you want to include about the distribution'
     required: true
-  aliases:
-    description: 'A comma separated list of extra CNAMEs (alternate domain names). If creating a custom SSL certificate, this list will be used as SANs in the issued certificate. The first alias in the list will be used as the primary domain name of the certificate'
-    required: false
   default_root_object:
     description: 'The object that you want CloudFront to return (for example, index.html) when an end user requests the root URL'
     required: false
@@ -92,17 +89,13 @@ inputs:
     required: false
     default: 'none'
 
-  # use_default_cert:
-  #   description: 'If you want viewers to use HTTPS to request your objects and youre using the CloudFront domain name for your distribution'
-  #   required: false
-  #   default: false
+  domain_names:
+    description: 'A comma separated list of domain name aliases for this CF distribution. The first domain name/alias will be the primary domain name, and the rest will be added as SANs in the issued certificate. If not defined, the default SSL certificate will be used'
+    required: false
   minimum_protocol_version:
-    description: 'The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections'
+    description: 'The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections.'
     required: false
     default: 'TLSv1.2_2018'
-  certificate_domain_name:
-    description: 'A domain name for which the certificate should be issued'
-    required: false
   
   restriction_locations:
     description: 'The ISO 3166-1-alpha-2 codes for which you want CloudFront either to distribute your content (whitelist) or not distribute your content (blacklist)'
