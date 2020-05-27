@@ -1,36 +1,62 @@
-AWS Terraform Example Action
+CloudFront Terraform Action
 ============================
-This repository is home to an _example_ GitHub action used as a template for
-rapid development of Terraform based actions. The goal of this model is to
-provide a common framework for deploying modularized infrastructure with
-configuration paramters supplied as part of the GitHub workflow.
+Deploy an AWS CloudFront using Terraform.
+
+
+Caveats
+-----
+
+- When using a custom SSL Certificate, the first deployment will fail because the SSL certificate domain validation has not been completed; therefore, the SSL cert will not be valid/issued. Domain validation must be done manually via DNS.
+- Terraform Project Action must be executed before this action  
+https://github.com/aplaceformom/terraform-project-base-action
+
 
 Usage
 -----
-Simply clone this repository and start developing your Terraform IAC. The
-entrypoint handler for this action will automatically translate GitHub inputs
-into terraform variables.
 
-For example, if your define the following `action.yaml`:
 ```yaml
-name: Example
-description: An example GitHub action
-inputs:
-  foo:
-    description: An input named foo
-  bar:
-    description: An input named bar
+  - name: 'DocumentDB Deploy'
+      uses: aplaceformom/terraform-docdb-action@master
+      with:
+        cluster_name: example
+        username: example_admin
+        credstash_docdb_password: example_credstash_key
+        subnet_ids: ${{ steps.project.outputs.subnet_id_private }}
+        instance_count: 2
 ```
 
-Then you are able to use these inputs directly as Terraform varables:
-```
-resource "a_terraform_resource" "example" {
-  paramter1 = var.foo
-  paramter2 = var.bar
-}
-```
+
+Inputs
+-----
+
+### destroy
+Runs Terraform destroy to remove resources created by this action'
+- required: false
+- default: false
+
+### deploy
+Runs Terraform apply to create/update resources created by this action
+- required: false
+- default: true
+
+### plan
+Runs Terraform plan to check the changes necessary to achieve the desired state
+- required: false
+- default: true
+
+
+
+Outputs
+-------
+
+|         Context            |              Description                |
+|----------------------------|-----------------------------------------|
+| cloudfront_status          | The current status of the distribution  |
+| cloudfront_domain_name     | The domain name corresponding to the distribution |
+
 
 
 To Do
 -------
 - ISSUE: If CF is configured with a custom SSL certificate, and we want to switch to the default certificate instead, Terraform will have trouble deleting the SSL certificate because it is in use. To fix, we need to force CF to use the default certificate FIRST and then delete.
+- Enable S3 origins
