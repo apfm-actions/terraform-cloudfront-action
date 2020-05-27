@@ -21,7 +21,7 @@ resource "aws_acm_certificate" "cert" {
   count                     = var.use_default_cert ? 0 : 1
   domain_name               = local.aliases[0]
   validation_method         = "DNS"
-  #subject_alternative_names = local.aliases
+  subject_alternative_names = slice(local.aliases,1,length(local.aliases))
 
   tags = {
     app   = var.project_name
