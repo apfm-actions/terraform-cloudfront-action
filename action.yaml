@@ -22,7 +22,7 @@ inputs:
     description: 'Any comments you want to include about the distribution'
     required: true
   aliases:
-    description: 'A comma separated list of extra CNAMEs (alternate domain names). If creating a custom SSL certificate, this list will be used as SANs in the issued certificate'
+    description: 'A comma separated list of extra CNAMEs (alternate domain names). If creating a custom SSL certificate, this list will be used as SANs in the issued certificate. The first alias in the list will be used as the primary domain name of the certificate'
     required: false
   default_root_object:
     description: 'The object that you want CloudFront to return (for example, index.html) when an end user requests the root URL'

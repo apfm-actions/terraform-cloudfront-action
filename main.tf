@@ -56,11 +56,15 @@ resource "aws_cloudfront_distribution" "distribution" {
     }
   }
 
-  # logging_config {
-  #   bucket          = var.logging_bucket
-  #   include_cookies = var.logging_include_cookies
-  #   prefix          = var.logging_prefix
-  # }
+  dynamic "logging_config" {
+    for_each = var.logging_bucket != "" ? [ "1"] : []
+
+    content {
+      bucket          = var.logging_bucket
+      include_cookies = var.logging_include_cookies
+      prefix          = var.logging_prefix
+    }
+  }
 
   tags = {
     app   = var.project_name
