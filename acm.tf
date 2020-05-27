@@ -1,8 +1,8 @@
-# variable "aws_assume_role" {
-# }
+variable "aws_assume_role" {
+}
 
-# variable "aws_external_id" {
-# }
+variable "aws_external_id" {
+}
 
 provider "aws" {
   alias   = "us-east-1"
