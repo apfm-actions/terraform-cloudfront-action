@@ -6,7 +6,7 @@ locals {
 resource "aws_cloudfront_distribution" "distribution" {
   enabled             = var.enable_cloudfront
   comment             = var.comment
-  #aliases             = local.aliases
+  aliases             = local.aliases
   default_root_object = var.default_root_object
   price_class         = var.price_class
 
