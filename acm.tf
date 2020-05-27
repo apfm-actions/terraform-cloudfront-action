@@ -1,17 +1,17 @@
-variable "aws_assume_role" {
-}
+# variable "aws_assume_role" {
+# }
 
-variable "aws_external_id" {
-}
+# variable "aws_external_id" {
+# }
 
 provider "aws" {
   alias   = "us-east-1"
 
   region  = "us-east-1"
   assume_role {
-    role_arn = "${aws_assume_role}"
+    role_arn = var.aws_assume_role
     #session_name = "${GIHUB_ACTION_NAME}_${GITHUB_ACTION_COUNT}"
-    external_id = "${aws_external_id}"
+    external_id = var.aws_external_id
   }
 }
 
