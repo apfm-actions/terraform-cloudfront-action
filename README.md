@@ -58,5 +58,6 @@ Outputs
 
 To Do
 -------
+- complete readme
 - ISSUE: If CF is configured with a custom SSL certificate, and we want to switch to the default certificate instead, Terraform will have trouble deleting the SSL certificate because it is in use. To fix, we need to force CF to use the default certificate FIRST and then delete.
 - Enable S3 origins

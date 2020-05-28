@@ -3,7 +3,6 @@ locals {
   domain_names = var.domain_names != "" ? split(",", var.domain_names) : []
 }
 
-
 resource "aws_cloudfront_distribution" "distribution" {
   enabled             = var.enable_cloudfront
   comment             = var.comment
@@ -16,12 +15,15 @@ resource "aws_cloudfront_distribution" "distribution" {
     origin_id   = var.origin_id
     origin_path = var.origin_path
 
-    # needs to be dynamic
-    custom_origin_config {
-      http_port              = var.origin_http_port
-      https_port             = var.origin_https_port
-      origin_protocol_policy = var.origin_protocol_policy
-      origin_ssl_protocols   = split(",", var.origin_ssl_protocols)
+    dynamic "custom_origin_config" {
+      for_each = var.origin_is_s3 ? [] : ["1"]
+
+      content {
+        http_port              = var.origin_http_port
+        https_port             = var.origin_https_port
+        origin_protocol_policy = var.origin_protocol_policy
+        origin_ssl_protocols   = split(",", var.origin_ssl_protocols)
+      }
     }
   }
   
