@@ -45,7 +45,6 @@ Runs Terraform plan to check the changes necessary to achieve the desired state
 - default: true
 
 
-
 Outputs
 -------
 

@@ -3,6 +3,11 @@ locals {
   domain_names = var.domain_names != "" ? split(",", var.domain_names) : []
 }
 
+data "aws_s3_bucket" "selected" {
+  count = var.origin_is_s3 ? 1 : 0
+  bucket = var.origin_domain_name
+}
+
 resource "aws_cloudfront_distribution" "distribution" {
   enabled             = var.enable_cloudfront
   comment             = var.comment
@@ -11,7 +16,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   price_class         = var.price_class
 
   origin {
-    domain_name = var.origin_domain_name
+    domain_name = var.origin_is_s3 ? data.aws_s3_bucket.selected.bucket_domain_name : var.origin_domain_name
     origin_id   = var.origin_id
     origin_path = var.origin_path
 
