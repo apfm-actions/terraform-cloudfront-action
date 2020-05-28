@@ -29,7 +29,7 @@ inputs:
     required: false
     default: 'PriceClass_100'
   origin_domain_name:
-    description: 'The DNS domain name of either the S3 bucket, or web site of your custom origin'
+    description: 'The DNS domain name of the web site for a custom origin or the S3 bucket name'
     required: true
   origin_is_s3: 
     description: 'Set to true if the origin is an S3 bucket, otherwise set to false and a custom origin will be used.'
