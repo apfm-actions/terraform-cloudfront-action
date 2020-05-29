@@ -30,6 +30,14 @@ resource "aws_cloudfront_distribution" "distribution" {
         origin_ssl_protocols   = split(",", var.origin_ssl_protocols)
       }
     }
+
+    dynamic "s3_origin_config" {
+      for_each = var.origin_is_s3 && var.origin_access_identity != "" ? ["1"] : []
+
+      content {
+        origin_access_identity = var.origin_access_identity
+      }
+    }
   }
   
   default_cache_behavior {

@@ -35,6 +35,9 @@ inputs:
     description: 'Set to true if the origin is an S3 bucket, otherwise set to false and a custom origin will be used.'
     required: false
     default: false
+  origin_access_identity:
+    description: 'The CloudFront origin access identity to associate with the origin'
+    required: false
   origin_id:
     description: 'A unique identifier for the origin'
     required: true
