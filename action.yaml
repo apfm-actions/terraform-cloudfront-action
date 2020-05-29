@@ -36,7 +36,7 @@ inputs:
     required: false
     default: false
   origin_access_identity:
-    description: 'The CloudFront origin access identity to associate with the origin'
+    description: 'The CloudFront origin access identity to associate with the origin. Only applicable to S3 origins'
     required: false
   origin_id:
     description: 'A unique identifier for the origin'

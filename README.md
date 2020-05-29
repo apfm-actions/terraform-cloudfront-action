@@ -69,6 +69,10 @@ Set to true if the origin is an S3 bucket, otherwise set to false and a custom o
 - required: false
 - default: false
 
+### origin_access_identity
+The CloudFront origin access identity to associate with the origin. Only applicable to S3 origins
+required: false
+
 ### origin_id
 A unique identifier for the origin
 - required: true
