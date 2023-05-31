@@ -63,7 +63,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     cloudfront_default_certificate = local.use_default_cert
     acm_certificate_arn            = local.use_default_cert ? "" : aws_acm_certificate.cert[0].arn
     minimum_protocol_version       = local.use_default_cert ? "TLSv1" : var.minimum_protocol_version
-    ssl_support_method             = local.use_default_cert ? "" : "sni-only"
+    ssl_support_method             = local.use_default_cert ? "vpi" : "sni-only"
   }
 
   restrictions {
